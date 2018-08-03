@@ -25,6 +25,9 @@
 #include <queue>
 #include <string>
 #include <thread>
+#include <queue>
+#include <iostream>
+#include <fstream>
 
 #include <gst/gst.h>
 #include <gst/app/gstappsrc.h>
@@ -624,6 +627,14 @@ private:
 
     /// Flag to indicate if the player is in live mode.
     const bool m_isLiveMode;
+
+    /**
+     * HACK Write to file instead of a real audio device.
+     */
+    std::ofstream *m_fileStream;
+    unsigned m_samplesWritten;
+
+    static GstFlowReturn WriterCallback(GstElement *sink, void *data);
 };
 
 }  // namespace mediaPlayer
